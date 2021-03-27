@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class WeatherServiceApplication {
 
-	@Value("${sm://OPEN_WEATHER_MAP_API_KEY}")
+	@Value("$apiKey")
 	private String apiKey;
 
 	public static void main(String[] args) {
@@ -37,12 +37,12 @@ public class WeatherServiceApplication {
 		String key =null;
 
 		if(!StringUtils.hasText(apiKey)){
-			log.info("Retrieved apiKey from GKE secrets");
 			key = apiKey;
+			log.info("Retrieved apiKey from GKE secrets {}",key);
 		}
 		if(!StringUtils.hasText(key)){
-			log.info("could not retrieve key. Using hardcoded key");
 			key =System.getenv("OPEN_WEATHER_API_KEY");
+			log.info("could not retrieve key. Using hardcoded key {}",key);
 		}
 		return new OpenWeatherMapProvider(key);
 	}

@@ -1,5 +1,9 @@
 package com.koqonut.weather.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import com.koqonut.weather.model.WeatherData;
@@ -28,6 +32,8 @@ public class OpenWeatherMapProvider implements WeatherProvider {
 
     public OpenWeatherMapProvider(String key) {
         this.apiKey = key;
+        LocalDateTime datetime = LocalDateTime .now();
+        log.info("Built at {}",ZonedDateTime.of(datetime,ZoneId.of ( "America/New_York" )));
     }
 
     @Override

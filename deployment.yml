@@ -15,8 +15,15 @@ spec:
       containers:
         - name: app
           image: koqonut/weather-service:v1
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5001
+          env:
+            - name : OPEN_WEATHER_MAP_API_KEY
+              valueFrom:
+                secretKeyRef:
+                 name:  weather-api-credentials
+                 key: apikey
 
 ---
 apiVersion: v1
