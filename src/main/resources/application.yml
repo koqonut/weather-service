@@ -15,5 +15,3 @@ management:
   endpoint:
     health:
       enabled: true
-
-OPEN_WEATHER_MAP_API_KEY : ${sm://OPEN_WEATHER_MAP_API_KEY}

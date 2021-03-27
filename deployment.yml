@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: koqonut/weather-service:latest
+          image: koqonut/weather-service:v1
           ports:
             - containerPort: 5001
 

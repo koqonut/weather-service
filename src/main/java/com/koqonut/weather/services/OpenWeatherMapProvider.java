@@ -6,6 +6,7 @@ import com.koqonut.weather.model.WeatherData;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.gcp.secretmanager.SecretManagerTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +23,9 @@ public class OpenWeatherMapProvider implements WeatherProvider {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired(required=false)
+	private SecretManagerTemplate secretManagerTemplate;
+
     public OpenWeatherMapProvider(String key) {
         this.apiKey = key;
     }
@@ -29,7 +33,7 @@ public class OpenWeatherMapProvider implements WeatherProvider {
     @Override
     public Optional<WeatherData> getWeather(String latitude, String longitude) {
         if(!StringUtils.hasText(latitude) || !StringUtils.hasText(longitude)){
-            throw new IllegalArgumentException("Lattitude "+ latitude +" and longitude "+ longitude+" cannot be empty");
+            throw new IllegalArgumentException("Latitude "+ latitude +" and longitude "+ longitude+" cannot be empty");
         }
         StringBuilder sb = new StringBuilder(apiBase);
         sb.append("lat=").append(latitude).append("&lon=").append(longitude).append("&appid=").append(apiKey);
@@ -50,7 +54,12 @@ public class OpenWeatherMapProvider implements WeatherProvider {
     }
 
     public Optional<WeatherData> getWeather(String city) {
-
+        if(secretManagerTemplate!=null){
+            log.info("secretManagerTemplate values {}",this.secretManagerTemplate.getSecretString("sm://OPEN_WEATHER_MAP_API_KEY"));
+        }else{
+            log.info("secretManagerTemplate is empty ");
+        }
+       
         if(!StringUtils.hasText(city)){
             throw new IllegalArgumentException("City cannot be empty");
         }
