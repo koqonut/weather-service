@@ -42,7 +42,7 @@ public class WeatherServiceApplication {
 		}
 		if(!StringUtils.hasText(key)){
 			key =System.getenv("OPEN_WEATHER_API_KEY");
-			log.info("could not retrieve key. Using hardcoded key {}",key);
+			log.info("could not retrieve key. Using hardcoded key {}.",key);
 		}
 		return new OpenWeatherMapProvider(key);
 	}
