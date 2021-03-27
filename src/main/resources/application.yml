@@ -16,4 +16,4 @@ management:
     health:
       enabled: true
 
-OPEN_WEAHER_MAP_API_KEY : ${sm://OPEN_WEAHER_MAP_API_KEY}
+OPEN_WEATHER_MAP_API_KEY : ${sm://OPEN_WEATHER_MAP_API_KEY}

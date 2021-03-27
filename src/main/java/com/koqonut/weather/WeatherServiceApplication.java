@@ -18,7 +18,7 @@ public class WeatherServiceApplication {
 
 
 
-	@Value("${OPEN_WEAHER_MAP_API_KEY}")
+	@Value("${OPEN_WEATHER_MAP_API_KEY}")
 	String apiKey;
   
 
