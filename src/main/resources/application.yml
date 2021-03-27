@@ -1,0 +1,17 @@
+eureka:
+  client:
+    enabled: false
+    registerWithEureka: false
+    fetchRegistry: false
+
+server:
+  port: 5001
+
+spring:
+  application:
+    name: WEATHER-SERVICE
+
+management:
+  endpoint:
+    health:
+      enabled: true
