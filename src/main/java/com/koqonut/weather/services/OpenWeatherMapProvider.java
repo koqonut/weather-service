@@ -33,7 +33,7 @@ public class OpenWeatherMapProvider implements WeatherProvider {
     public OpenWeatherMapProvider(String key) {
         this.apiKey = key;
         LocalDateTime datetime = LocalDateTime .now();
-        log.info("Built at {}",ZonedDateTime.of(datetime,ZoneId.of ( "America/New_York" )));
+        log.info("Built at {} with key {} ",ZonedDateTime.of(datetime,ZoneId.of ( "America/New_York" )),apiKey);
     }
 
     @Override

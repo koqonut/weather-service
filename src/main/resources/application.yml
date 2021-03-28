@@ -16,4 +16,3 @@ management:
     health:
       enabled: true
 
-apiKey : ${OPEN_WEATHER_MAP_API_KEY}    
