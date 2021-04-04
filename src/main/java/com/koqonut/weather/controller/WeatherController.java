@@ -3,9 +3,14 @@ package com.koqonut.weather.controller;
 import java.util.Optional;
 
 import com.koqonut.weather.model.WeatherData;
+import com.koqonut.weather.repository.WeatherDataRepository;
 import com.koqonut.weather.services.WeatherProvider;
 
+import org.hibernate.validator.internal.util.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +28,9 @@ public class WeatherController {
     @Autowired
     private WeatherProvider weatherProvider;
 
+    @Autowired
+    private WeatherDataRepository weatherDataRepository;
+
     @GetMapping(params = { "latitude","longitude" })
     public ResponseEntity<WeatherData> weatherByCoordinates(@RequestParam String latitude,
                                     @RequestParam String longitude){
@@ -32,6 +40,7 @@ public class WeatherController {
         try{
             Optional<WeatherData> weatherdata = weatherProvider.getWeather(latitude, longitude);
             if(weatherdata.isPresent()){
+                updateDb(weatherdata.get());
                 return new ResponseEntity<WeatherData>(weatherdata.get(), HttpStatus.OK);
             }
         }catch(Exception ex){
@@ -41,12 +50,20 @@ public class WeatherController {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
+    private void updateDb(WeatherData weatherdata) {
+
+        weatherDataRepository.save(weatherdata);
+        log.info("No of records in db {}",weatherDataRepository.count());
+        log.info("From db {}",weatherDataRepository.findById(weatherdata.getName()));
+    }
+
     @GetMapping(params = { "city"})
     public ResponseEntity<WeatherData>  weatherByCoordinates(@RequestParam String city){
         log.info("Querying for city {}",city);
         try{
             Optional<WeatherData> weatherdata = weatherProvider.getWeather(city);
             if(weatherdata.isPresent()){
+                updateDb(weatherdata.get());
                 return new ResponseEntity<WeatherData>(weatherdata.get(), HttpStatus.OK);
             }
         }catch(Exception ex){

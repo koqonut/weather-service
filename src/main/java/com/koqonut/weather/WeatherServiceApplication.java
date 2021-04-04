@@ -23,9 +23,6 @@ public class WeatherServiceApplication {
 	@Value("${OPEN_WEATHER_MAP_API_KEY}")
 	private String apiKey;
 
-	@Value("${OPEN_WEATHER_MAP_API_KEY}")
-	private byte[] apiKeybytes;
-
 	public static void main(String[] args) {
 		SpringApplication.run(WeatherServiceApplication.class, args);
 	}
@@ -34,8 +31,6 @@ public class WeatherServiceApplication {
 	public RestTemplate restTemplate(){
 		return new RestTemplate();
 	}
-
-
 
 	@Bean
 	public WeatherProvider weatherProvider(){

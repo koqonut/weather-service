@@ -28,6 +28,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	 implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-secretmanager', version: '1.2.7.RELEASE'
 	implementation group: 'com.google.cloud', name: 'spring-cloud-gcp-dependencies', version: '2.0.2', ext: 'pom'
 

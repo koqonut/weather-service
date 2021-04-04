@@ -10,9 +10,20 @@ server:
 spring:
   application:
     name: WEATHER-SERVICE
+  data:
+    mongodb:
+      host: '${MONGO_HOST}'
+      database: '${MONGO_DB}'
+      port: 27017
+      username: '${MONGO_DB_USERNAME}'
+      password: '${MONGO_DB_PASSWORD}'
 
 management:
   endpoint:
     health:
+      enabled: true
+    info:
+      enabled: true
+    restart:
       enabled: true
 
