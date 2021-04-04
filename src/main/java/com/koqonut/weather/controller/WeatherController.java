@@ -6,11 +6,9 @@ import com.koqonut.weather.model.WeatherData;
 import com.koqonut.weather.repository.WeatherDataRepository;
 import com.koqonut.weather.services.WeatherProvider;
 
-import org.hibernate.validator.internal.util.logging.Log;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

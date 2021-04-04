@@ -27,9 +27,6 @@ public class OpenWeatherMapProvider implements WeatherProvider {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired(required=false)
-	private SecretManagerTemplate secretManagerTemplate;
-
     public OpenWeatherMapProvider(String key) {
         this.apiKey = key;
         LocalDateTime datetime = LocalDateTime .now();
@@ -60,11 +57,6 @@ public class OpenWeatherMapProvider implements WeatherProvider {
     }
 
     public Optional<WeatherData> getWeather(String city) {
-        if(secretManagerTemplate!=null){
-            log.info("secretManagerTemplate values {}",this.secretManagerTemplate.getSecretString("sm://OPEN_WEATHER_MAP_API_KEY"));
-        }else{
-            log.info("secretManagerTemplate is empty ");
-        }
        
         if(!StringUtils.hasText(city)){
             throw new IllegalArgumentException("City cannot be empty");
