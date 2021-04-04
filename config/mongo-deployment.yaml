@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongoweatherdb-deployment
+  labels:
+    app: mongoweatherdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongoweatherdb
+  template:
+  #template is the blueprint for pods to be created
+    metadata:
+      labels:
+        app: mongoweatherdb
+    spec:
+      containers:
+      - name: mongoweatherdb
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongoweatherdb-secret
+              key: mongo-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mongoweatherdb-secret
+              key: mongo-root-password
+        volumeMounts:
+          - name: mongoweatherdb-persistent-storage
+            mountPath: /data/db
+      volumes:
+      - name: mongoweatherdb-persistent-storage
+        persistentVolumeClaim:
+          claimName: mongoweatherdb-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mongoweatherdb
+  name: mongoweatherdb-service
+spec:
+  selector:
+  # corresponds to pod label deployment
+    app: mongoweatherdb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  clusterIP: None # we use DNS, so clusterIP is irrelevent
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongoweatherdb-pv-claim # name of PVC essential foe identifying the storage data
+  labels: 
+    app: mongoweatherdb
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+

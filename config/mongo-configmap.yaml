@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: mongoweatherdb-configmap
+data:
+    host: mongo-weather-db
+    database: weatherdb 
+    # meta data name from mongo.yaml
+ 
