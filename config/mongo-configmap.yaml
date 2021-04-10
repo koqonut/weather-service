@@ -4,6 +4,6 @@ metadata:
     name: mongoweatherdb-configmap
 data:
     host: mongoweatherdb-service
-    database: admin 
+    database: weatherDB 
     # meta data name from mongo.yaml
  

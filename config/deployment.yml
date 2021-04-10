@@ -22,17 +22,17 @@ spec:
             - name: OPEN_WEATHER_MAP_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: weather-api-credentials
+                  name: weather-service-secrets
                   key: apikey
             - name: MONGO_DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: mongoweatherdb-secret
+                  name: weather-service-secrets
                   key: mongo-root-username
             - name: MONGO_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mongoweatherdb-secret
+                  name: weather-service-secrets
                   key:  mongo-root-password
             - name: MONGO_DB
               valueFrom:

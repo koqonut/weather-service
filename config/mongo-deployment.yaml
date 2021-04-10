@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongoweatherdb-deployment
+  name: mongo-server
   labels:
-    app: mongoweatherdb
+    app: mongo-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongoweatherdb
+      app: mongo-app
   template:
   #template is the blueprint for pods to be created
     metadata:
       labels:
-        app: mongoweatherdb
-      name: mongoweatherdb-service
+        app: mongo-app
+      name: mongo-service
     spec:
       containers:
-      - name: mongoweatherdb
+      - name: mongo-app
         image: mongo
         ports:
         - containerPort: 27017
@@ -33,23 +33,23 @@ spec:
               name: mongoweatherdb-secret
               key: mongo-root-password
         volumeMounts:
-          - name: mongoweatherdb-persistent-storage
+          - name: mongo-app-persistent-storage
             mountPath: /data/db
       volumes:
-      - name: mongoweatherdb-persistent-storage
+      - name: mongo-app-persistent-storage
         persistentVolumeClaim:
-          claimName: mongoweatherdb-pv-claim
+          claimName: mongo-app-pv-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: mongoweatherdb
-  name: mongoweatherdb-service
+    app: mongo-app
+  name: mongo-service
 spec:
   selector:
   # corresponds to pod label deployment
-    app: mongoweatherdb
+    app: mongo-app
   ports:
     - protocol: TCP
       port: 27017
@@ -60,9 +60,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongoweatherdb-pv-claim # name of PVC essential foe identifying the storage data
+  name: mongo-app-pv-claim # name of PVC essential foe identifying the storage data
   labels: 
-    app: mongoweatherdb
+    app: mongo-app
     tier: database
 spec:
   accessModes:

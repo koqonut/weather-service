@@ -1,12 +1,8 @@
 package com.koqonut.weather;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
 import com.koqonut.weather.services.OpenWeatherMapProvider;
 import com.koqonut.weather.services.WeatherProvider;
 
-import org.bouncycastle.jcajce.util.AnnotatedPrivateKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,0 +1,8 @@
+use weatherDB
+db.createUser(
+   {
+     user: "${{FROM_GIT_MONGO_USER}}",
+     pwd: passwordPrompt(),  // Or  "<cleartext password>"
+     roles: [ "readWrite" ]
+   }
+)
